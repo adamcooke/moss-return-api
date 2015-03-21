@@ -1,0 +1,16 @@
+{
+  "period":"Q1/2015",
+  "uk": [
+    "123",
+    {
+      "rate_type":"standard",
+      "rate":20.0,
+      "vat_due":5
+    }
+  ],
+  "non_uk":{
+    "FR": {
+      "vat_due":20
+    }
+  }
+}

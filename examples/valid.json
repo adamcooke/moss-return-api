@@ -1,0 +1,29 @@
+{
+  "period":"Q1/2015",
+  "uk": [
+    {
+      "country":"FR",
+      "rate_type":"standard",
+      "rate":20.0,
+      "total_sales":2000,
+      "vat_due":10
+    },
+    {
+      "country":"DE",
+      "rate_type":"standard",
+      "rate":20.0,
+      "total_sales":1000,
+      "vat_due":5
+    }
+  ],
+  "non_uk":[
+    {
+      "vat_number":"123 123 123",
+      "country":"BE",
+      "rate_type":"standard",
+      "rate":20.0,
+      "total_sales":3333,
+      "vat_due":33.33
+    }
+  ]
+}
