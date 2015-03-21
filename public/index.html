@@ -1,0 +1,125 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <title>JSON to HMRC MOSS Return</title>
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,900' rel='stylesheet' type='text/css'>
+    <style>
+      html { font-family:'Source Sans Pro', sans-serif; font-size:18px;}
+      div.page {
+        max-width:900px;
+        margin-left:60px;
+        margin-right:60px;
+        margin-top:100px;
+      }
+      h1 { font-weight:700; letter-spacing:-0.05em; font-size:32px;}
+      h2 {font-weight: normal; font-size:24px; line-height:32px;}
+      h3 { border-bottom:2px solid #000; font-size:24px; font-weight:600; padding-bottom:2px; margin-top:40px;}
+      p, ul { line-height:26px;}
+      ul li { margin-bottom:6px;}
+      textarea { font-family:Monaco, 'Courier New', fixed; border:2px solid #ddd; border-radius:6px; padding:10px; font-size:14px; width:100%; height:300px; background:#f8f8f8;}
+      p.submitButton { text-align: right; }
+      code { background:#efefef; border:1px solid #ddd; padding:1px 3px; border-radius:4px; margin:0 2px; font-size:90%;}
+      pre { line-height:1.5; border-radius:6px; background:#333; color:#fff; padding:15px; max-height:200px; overflow-y:scroll;}
+      span.codeComment { color:#999; font-style:italic;}
+      div.footer {
+        margin-top:60px;
+        margin-bottom:80px;
+        color:#888;
+      }
+      span.warning { color:#cb2929; font-weight:600;}
+      a { color:inherit;}
+      @media (max-width:400px) {
+        div.page { margin-left:20px; margin-right:20px; margin-top:20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class='page'>
+      <h1>Create HMRC MOSS ODS documents from JSON</h1>
+      <h2>
+        This service allows you to easily convert JSON into an HMRC-compatible ODS
+        file which can be uploaded to them when submitting your MOSS (mini one stop shop)
+        returns every quarter.
+      </h2>
+      <p>
+        This is designed to be an API endpoint which you can call from your own
+        applications however you can also paste your own JSON in the field below and
+        we'll generate the file from that. No authentication is needed to use this
+        service and no data you upload is persisted anywhere on the server.
+      </p>
+
+      <h3>How should to format your JSON?</h3>
+      <p>
+        You should follow the template below to format the JSON which you upload to
+        this service. Review the notes below the example.
+      </p>
+      <pre>
+{
+  "period": "Q1/2015",
+  "uk": [
+    {
+      "country": "FR",
+      "rate_type": "standard",
+      "rate": 20.0,
+      "total_sales": 2000,
+      "vat_due": 400
+    },
+    {
+      "country": "DE",
+      "rate_type": "standard",
+      "rate": 25.0,
+      "total_sales": 1500,
+      "vat_due": 375
+    }
+  ],
+  "non_uk": [
+    {
+      "vat_number": "123 123 123",
+      "country": "BE",
+      "rate_type": "standard",
+      "rate": 20.0,
+      "total_sales": 2000,
+      "vat_due": 400
+    }
+  ]
+}</pre>
+      <ul>
+        <li>The <code>period</code> entry should contain the period name (e.g. Q1/2015). This must be provided.</li>
+        <li>The <code>uk</code> array should contain details of supplies made from the UK to other EU states.</li>
+        <li>The <code>non_uk</code> array should contain details of supplies made from fixed establishments outside of the UK.</li>
+        <li>You must provide one of either the <code>uk</code> or <code>non_uk</code> arrays.</li>
+        <li>You may provide a maximum of 150 items per <code>uk</code> and <code>non_uk</code> array.</li>
+      </ul>
+      <h3>Use this API from an external service/script</h3>
+      <p>
+        You can send a request to <b>https://mossreturn.uk/generate</b> and include your
+        JSON in the <code>json</code> parameter. No other information is needed.
+        If a document is generated, you will receive a <code>200 OK</code> response along
+        with your new document. You may receive a <code>400 Bad Request</code> response
+        if the data you provide is invalid.
+      </p>
+
+      <h3>Use this API from this website</h3>
+      <p>
+        If you've got some JSON you want to use already, just paste it into the box below
+        and hit Generate and we'll generate the file for you. You can generate an example
+        file by copying the example JSON above into the box below.
+      </p>
+      <form action='/generate' method='POST'>
+        <p><textarea name='json' required></textarea></p>
+        <p class='submitButton'><button type='submit'>Generate ODS File</button></p>
+      </form>
+
+      <div class='footer'>
+        <p>
+          This tool is maintained by <a href='http://adamcooke.io'>Adam Cooke</a> and hosted for free on
+          <a href='http://viaduct.io'>Viaduct</a>. The code behind it is on <a href='http://github.com/adamcooke/moss-return-api'>GitHub</a>.
+          <span class='warning'>Please always be sure to check the data you provide before you submit it to HMRC.</span> The author of
+          this site makes no guarantees there will not be mistakes and accepts not responsibility for any
+          issues which may arise from your use of the site.
+        </p>
+      </div>
+
+    </div>
+  </body>
+</html>

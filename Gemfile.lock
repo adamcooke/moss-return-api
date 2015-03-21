@@ -1,9 +1,10 @@
 GIT
   remote: git://github.com/adamcooke/hmrc-moss-return.git
-  revision: 1aa03930219069b14fc79845a83f4aa65124ec99
+  revision: b6aa53e79078d7f236739b0409f7680c0929a04d
   branch: master
   specs:
     hmrc-moss-return (1.0.0)
+      rubyzip (> 1.0, < 2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -24,6 +25,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
+    rubyzip (1.1.7)
 
 PLATFORMS
   ruby
